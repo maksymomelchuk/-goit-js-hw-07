@@ -6,7 +6,16 @@ const galleryRef = document.querySelector('.gallery')
 
 const result = galleryItems
   .map((item) => {
-    return `<img src="${item.preview}" alt="${item.description}">`
+    return `<div class="gallery__item">
+  <a class="gallery__link" href="${item.original}">
+    <img
+      class="gallery__image"
+      src="${item.preview}"
+      data-source="${item.original}"
+      alt="${item.description}"
+    />
+  </a>
+</div>`
   })
   .join('')
 
@@ -16,6 +25,7 @@ galleryRef.insertAdjacentHTML('afterbegin', result)
 // Image Preview
 
 galleryRef.addEventListener('click', (event) => {
+  event.preventDefault()
   const element = galleryItems.find(
     (item) => item.description === event.target.alt
   )
@@ -33,6 +43,6 @@ galleryRef.addEventListener('click', (event) => {
   }
   function deleteListener() {
     document.body.removeEventListener('keydown', addListener)
-    console.log('listener deleted :D');
+    console.log('listener deleted :D')
   }
 })
